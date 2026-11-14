@@ -1,3 +1,4 @@
+
 package com.productmangment.productmangment.entity;
 
 import jakarta.persistence.*;
@@ -20,25 +21,25 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ProductEntity {
 
-    @id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     @NotBlank(message = "Product name is required")
-    private  String name;
+    private String name;
 
-    @NotBlank(message = "description is required")
     @Column(nullable = false)
-    private  String desc;
+    @NotBlank(message = "Description is required")
+    private String description;
 
-    @NotBlank(message = "Price is required")
     @Column(nullable = false)
-    @DecimalMin("0.01")
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.01", message = "Price must be greater than zero")
     private BigDecimal price;
 
-    @NotNull
-    @Min(0)
     @Column(nullable = false)
+    @Min(value = 0, message = "Quantity cannot be negative")
     private int quantity;
 
 }
