@@ -39,4 +39,22 @@ public class ProductService {
 
         pr.deleteById(id);
     }
+    //Update product by ID
+    public ProductEntity updateProduct(Long id,ProductEntity updatedProduct){
+        // Step 1: Find the existing product
+        ProductEntity existingProduct = pr.findById(id)
+                .orElseThrow(() -> new RuntimeException(
+                        "Product not found with id: " + id));
+
+        // Step 2: Update product fields
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setDescription(updatedProduct.getDescription());
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setQuantity(updatedProduct.getQuantity());
+
+        // Step 3: Save the updated product
+        return pr.save(existingProduct);
+
+
+    }
 }
